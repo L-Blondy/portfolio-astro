@@ -1,0 +1,49 @@
+---
+import 'src/index.css';
+import { SEO } from 'astro-seo';
+import { config } from '../config';
+
+export interface Props {
+   title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+      <meta name="generator" content={Astro.generator} />
+      <SEO
+         title={title}
+         description={config.seo.description}
+         canonical={config.seo.url}
+         openGraph={{
+            image: {
+               url: '/open-graph-image.png',
+               width: 1133,
+               height: 841,
+               alt: 'Laurent Blondy | Front-end Software Developer',
+               type: 'image/png',
+            },
+            optional: {
+               description: config.seo.description,
+               siteName: 'Laurent Blondy | Front-end Software Developer',
+               locale: 'en-US',
+            },
+            basic: {
+               title,
+               image: '/open-graph-image.png',
+               type: 'website',
+               url: config.seo.url,
+            },
+         }}
+      />
+   </head>
+   <body class="bg-light text-dark">
+      <slot />
+   </body>
+</html>

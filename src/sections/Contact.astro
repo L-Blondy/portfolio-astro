@@ -1,0 +1,47 @@
+---
+import { nanoid } from 'nanoid';
+
+const id = `form-id-${nanoid()}`;
+---
+
+<form method="post" action="/contact.json" id={id}>
+   <input type="email" name="email" class="border" />
+   <input type="text" name="fullName" class="border" />
+   <textarea
+      class="border"
+      name="message"
+      rows={10}
+      minlength="20"
+      maxlength="2000"
+      required></textarea>
+   <button>Submit</button>
+</form>
+
+<script define:vars={{ id }}>
+   const formEl = document.getElementById(id);
+   if (!formEl) return;
+   formEl.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const url = formEl.action;
+      const method = formEl.method;
+      const formData = new FormData(formEl);
+      let ok = false;
+      fetch(url, {
+         method,
+         body: formData,
+      })
+         .then((res) => {
+            ok = res.ok;
+            return res.json();
+         })
+         .then((data) => {
+            if (ok) {
+               return Promise.resolve(data);
+            } else {
+               return Promise.reject(data);
+            }
+         })
+         .then((data) => console.log('success', data))
+         .catch((error) => console.log('error', error));
+   });
+</script>
