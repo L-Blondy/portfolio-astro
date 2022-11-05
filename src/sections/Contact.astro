@@ -1,10 +1,10 @@
 ---
-import FormMutation from 'src/components/FormMutation.astro';
+import Form from 'src/components/Form.astro';
 ---
 
-<FormMutation method="post" action="/contact.json" id="contactForm">
-   <input type="email" name="email" class="border" />
-   <input type="text" name="fullName" class="border" />
+<Form method="post" action="/contact.json" id="contactForm">
+   <input type="email" name="email" class="border" required />
+   <input type="text" name="fullName" class="border" required />
    <textarea
       class="border"
       name="message"
@@ -13,7 +13,15 @@ import FormMutation from 'src/components/FormMutation.astro';
       maxlength="2000"
       required></textarea>
    <button>Submit</button>
-</FormMutation>
+   <button type="reset">Reset</button>
+</Form>
+
+<style>
+   input.touched:invalid,
+   textarea.touched:invalid {
+      border-color: red;
+   }
+</style>
 
 <script>
    (function () {
@@ -22,10 +30,10 @@ import FormMutation from 'src/components/FormMutation.astro';
       form.addEventListener('submit', (e) => {
          console.log('submit', e);
       });
-      form.addEventListener('success', (e) => {
+      form.addEventListener('submit-success', (e) => {
          console.log('success', e);
       });
-      form.addEventListener('failure', (e) => {
+      form.addEventListener('submit-error', (e) => {
          console.log('failure', e);
       });
    })();
