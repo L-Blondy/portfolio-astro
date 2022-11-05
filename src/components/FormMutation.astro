@@ -1,0 +1,65 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { nanoid } from 'nanoid';
+
+interface Props extends HTMLAttributes<'form'> {
+   action: string;
+   method: 'post' | 'put' | 'patch' | 'delete';
+   id?: string;
+}
+
+const { id = `form-id-${nanoid()}`, action, method, ...props } = Astro.props;
+---
+
+<form id={id} action={action} method={method} {...props}><slot /></form>
+
+<script define:vars={{ id, action, method }}>
+   (function () {
+      const formEl = document.getElementById(id);
+      if (!formEl) return;
+      let isSubmitting = false;
+
+      formEl.addEventListener('submit', (e) => {
+         e.preventDefault();
+         if (isSubmitting) return;
+         isSubmitting = true;
+         const url = formEl.action;
+         const method = formEl.method;
+         const formData = new FormData(formEl);
+         let ok = false;
+         fetch(url, {
+            method,
+            body: formData,
+            credentials: 'same-origin',
+         })
+            .then((res) => {
+               ok = res.ok;
+               return res.json();
+            })
+            .then((data) => {
+               if (ok) {
+                  return Promise.resolve(data);
+               } else {
+                  return Promise.reject(data);
+               }
+            })
+            .then((data) => {
+               if (!formEl) return;
+               const successEvent = new CustomEvent('success', {
+                  detail: data,
+               });
+               formEl.dispatchEvent(successEvent);
+            })
+            .catch((error) => {
+               if (!formEl) return;
+               const failureEvent = new CustomEvent('failure', {
+                  detail: error,
+               });
+               formEl.dispatchEvent(failureEvent);
+            })
+            .finally(() => {
+               isSubmitting = false;
+            });
+      });
+   })();
+</script>
