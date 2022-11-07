@@ -16,16 +16,16 @@ interface Props extends HTMLAttributes<'form'> {
    document
       .querySelectorAll<HTMLFormElement>('[data-enhanced-form]')
       .forEach((form) => {
-         form.addEventListener('reset', (e) => {
+         form.addEventListener('reset', () => {
             [...form.elements].forEach((element) => {
                element.classList.remove('touched');
             });
          });
          [...form.elements].forEach((element) => {
-            element.addEventListener('invalid', (e) => {
+            element.addEventListener('invalid', () => {
                element.classList.add('touched');
             });
-            element.addEventListener('blur', (e) => {
+            element.addEventListener('blur', () => {
                element.classList.add('touched');
             });
          });

@@ -1,40 +1,91 @@
 ---
-import Form from 'src/components/Form.astro';
+import Form from 'src/lib/Form.astro';
+import IconLoading from 'src/lib/IconLoading.astro';
+import IconSuccess from 'src/lib/IconSuccess.astro';
 ---
 
-<Form method="post" action="/contact.json" id="contactForm">
-   <input type="email" name="email" class="border" required />
-   <input type="text" name="fullName" class="border" required />
-   <textarea
-      class="border"
-      name="message"
-      rows={10}
-      minlength="20"
-      maxlength="2000"
-      required></textarea>
-   <button>Submit</button>
-   <button type="reset">Reset</button>
-</Form>
+<div class="px-4 bg-gray-100">
+   <Form
+      method="post"
+      action="/contact.json"
+      id="contactForm"
+      class="flex flex-col gap-4 sm:gap-7 max-w-xl mx-auto"
+   >
+      <div class="flex flex-col">
+         <label for="email" class="font-medium sm:text-lg">
+            Email
+            <span class="text-red-500">*</span>
+         </label>
+         <input
+            type="email"
+            name="email"
+            id="email"
+            class="leading-10 px-2 rounded-sm shadow-emphasis outline-primary-light"
+            required
+         />
+      </div>
+
+      <div class="flex flex-col">
+         <label for="fullName" class="font-medium sm:text-lg">
+            Full name
+            <span class="text-red-500">*</span>
+         </label>
+         <input
+            type="text"
+            name="fullName"
+            id="fullName"
+            class="leading-10 px-2 rounded-sm shadow-emphasis outline-primary-light"
+            required
+         />
+      </div>
+
+      <div class="flex flex-col">
+         <label for="message" class="font-medium sm:text-lg">
+            Message
+            <span class="text-red-500">*</span>
+         </label>
+         <textarea
+            class="leading-10 px-2 rounded-sm shadow-emphasis outline-primary-light"
+            name="message"
+            id="message"
+            rows={8}
+            minlength="20"
+            maxlength="2000"
+            required></textarea>
+      </div>
+      <button class="btn-contained gap-2">
+         Send message
+         <IconLoading id="submit-loading" class="hidden" />
+         <IconSuccess id="submit-success" class="hidden" />
+      </button>
+   </Form>
+</div>
 
 <style>
    input.touched:invalid,
    textarea.touched:invalid {
-      border-color: red;
+      outline: 2px solid coral;
    }
 </style>
 
 <script>
    (function () {
       const form = document.getElementById('contactForm');
+      const iconLoading = document.getElementById('submit-loading');
+      const iconSuccess = document.getElementById('submit-success');
+
       if (!form) return;
       form.addEventListener('submit', (e) => {
-         console.log('submit', e);
+         iconLoading?.classList.remove('hidden');
+         iconSuccess?.classList.add('hidden');
       });
       form.addEventListener('submit-success', (e) => {
-         console.log('success', e);
+         iconLoading?.classList.add('hidden');
+         iconSuccess?.classList.remove('hidden');
       });
       form.addEventListener('submit-error', (e) => {
-         console.log('failure', e);
+         iconLoading?.classList.add('hidden');
+         iconSuccess?.classList.add('hidden');
       });
    })();
 </script>
