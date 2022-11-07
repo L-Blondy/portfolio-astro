@@ -1,45 +1,32 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
+type Method = 'get' | 'post' | 'put' | 'patch' | 'delete';
+
 interface Props extends HTMLAttributes<'form'> {
    action: string;
-   method: 'get' | 'post' | 'put' | 'patch' | 'delete';
+   method: Method;
 }
----
 
-<form data-enhanced-form {...Astro.props}><slot /></form>
-
-<!-- Touched handler -->
-<script defer>
-   document.querySelectorAll('[data-enhanced-form]').forEach((form) => {
-      form.addEventListener('reset', (e) => {
-         [...form.elements].forEach((element) => {
-            element.classList.remove('touched');
-         });
-      });
-      [...form.elements].forEach((element) => {
-         element.addEventListener('invalid', (e) => {
-            element.classList.add('touched');
-         });
-         element.addEventListener('blur', (e) => {
-            element.classList.add('touched');
-         });
-      });
-   });
-</script>
-
-<!-- Submit handler -->
-<script defer>
+export const setupFormFetchers = () => {
    let isSubmitting = false;
 
-   const submitFormFetcher = ({ url, method, formData }) => {
+   const submitFormFetcher = ({
+      url,
+      method,
+      formData,
+   }: {
+      url: string;
+      method: Method;
+      formData: FormData;
+   }) => {
       if (isSubmitting) return;
       isSubmitting = true;
       let ok = false;
       function request() {
          // GET does not have a request body, params are passed in the search query string
          if (method.toLowerCase() === 'get') {
-            const search = new URLSearchParams(formData).toString();
+            const search = new URLSearchParams(formData as any).toString();
             return fetch(`${url}?${search}`, {
                method,
                credentials: 'same-origin',
@@ -68,28 +55,58 @@ interface Props extends HTMLAttributes<'form'> {
             }
          });
    };
+   document
+      .querySelectorAll<HTMLFormElement>('[data-enhanced-form]')
+      .forEach((form) => {
+         form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const url = form.action;
+            const method = form.method as Method;
+            const formData = new FormData(form);
+            submitFormFetcher({ url, formData, method })
+               ?.then((data) => {
+                  if (!form) return;
+                  const successEvent = new CustomEvent('submit-success', {
+                     detail: data,
+                  });
+                  form.dispatchEvent(successEvent);
+               })
+               .catch((error) => {
+                  if (!form) return;
+                  const errorEvent = new CustomEvent('submit-error', {
+                     detail: error,
+                  });
+                  form.dispatchEvent(errorEvent);
+               });
+         });
+      });
+};
+---
 
+<form data-enhanced-form {...Astro.props}><slot /></form>
+
+<!-- Touched handler -->
+<script defer>
    document.querySelectorAll('[data-enhanced-form]').forEach((form) => {
-      form.addEventListener('submit', (e) => {
-         e.preventDefault();
-         const url = form.action;
-         const method = form.method;
-         const formData = new FormData(form);
-         submitFormFetcher({ url, formData, method })
-            .then((data) => {
-               if (!form) return;
-               const successEvent = new CustomEvent('submit-success', {
-                  detail: data,
-               });
-               form.dispatchEvent(successEvent);
-            })
-            .catch((error) => {
-               if (!form) return;
-               const errorEvent = new CustomEvent('submit-error', {
-                  detail: error,
-               });
-               form.dispatchEvent(errorEvent);
-            });
+      form.addEventListener('reset', (e) => {
+         [...form.elements].forEach((element) => {
+            element.classList.remove('touched');
+         });
+      });
+      [...form.elements].forEach((element) => {
+         element.addEventListener('invalid', (e) => {
+            element.classList.add('touched');
+         });
+         element.addEventListener('blur', (e) => {
+            element.classList.add('touched');
+         });
       });
    });
+</script>
+
+<!-- Submit handler -->
+<script defer>
+   import { setupFormFetchers } from './Form.astro';
+
+   setupFormFetchers();
 </script>
