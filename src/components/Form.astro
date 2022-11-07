@@ -1,9 +1,11 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
+export type Method = 'get' | 'post' | 'put' | 'patch' | 'delete';
+
 interface Props extends HTMLAttributes<'form'> {
    action: string;
-   method: 'get' | 'post' | 'put' | 'patch' | 'delete';
+   method: Method;
 }
 ---
 
@@ -32,6 +34,8 @@ interface Props extends HTMLAttributes<'form'> {
 
 <!-- Submit handler -->
 <script>
+   import type { Method } from './Form.astro';
+
    let isSubmitting = false;
 
    const submitFormFetcher = ({
@@ -40,7 +44,7 @@ interface Props extends HTMLAttributes<'form'> {
       formData,
    }: {
       url: string;
-      method: string;
+      method: Method;
       formData: FormData;
    }) => {
       if (isSubmitting) return;
@@ -85,7 +89,7 @@ interface Props extends HTMLAttributes<'form'> {
          form.addEventListener('submit', (e) => {
             e.preventDefault();
             const url = form.action;
-            const method = form.method;
+            const method = form.method as Method;
             const formData = new FormData(form);
             submitFormFetcher({ url, formData, method })
                ?.then((data) => {
