@@ -1,0 +1,11 @@
+---
+import IconTriangles from 'src/lib/IconTriangles.astro';
+
+interface Props {}
+---
+
+<h2 class="flex items-center gap-2 text-2xl sm:text-3xl lg:text-4xl">
+   <IconTriangles class="text-primary-light" />
+   <slot />
+   <div class="grow h-0.5 -mb-0.5 ml-2 bg-primary-light"></div>
+</h2>

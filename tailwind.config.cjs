@@ -25,6 +25,9 @@ module.exports = {
          boxShadow: {
             emphasis: '0 0 2px 0 #00000016',
          },
+         padding: {
+            'section-gutter': '20px',
+         },
       },
    },
    plugins: [
