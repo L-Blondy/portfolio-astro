@@ -1,23 +1,17 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { nanoid } from 'nanoid';
 
 interface Props extends HTMLAttributes<'form'> {
    action: string;
    method: 'get' | 'post' | 'put' | 'patch' | 'delete';
-   id?: string;
 }
-
-const { id = `form-id-${nanoid()}`, action, method, ...props } = Astro.props;
 ---
 
-<form id={id} action={action} method={method} {...props}><slot /></form>
+<form data-enhanced-form {...Astro.props}><slot /></form>
 
 <!-- Touched handler -->
-<script define:vars={{ id }}>
-   (function () {
-      const form = document.getElementById(id);
-      if (!form) return;
+<script defer>
+   document.querySelectorAll('[data-enhanced-form]').forEach((form) => {
       form.addEventListener('reset', (e) => {
          [...form.elements].forEach((element) => {
             element.classList.remove('touched');
@@ -31,56 +25,57 @@ const { id = `form-id-${nanoid()}`, action, method, ...props } = Astro.props;
             element.classList.add('touched');
          });
       });
-   })();
+   });
 </script>
 
 <!-- Submit handler -->
-<script define:vars={{ id, action, method }}>
-   (function () {
-      const form = document.getElementById(id);
-      if (!form) return;
-      let isSubmitting = false;
+<script defer>
+   let isSubmitting = false;
 
+   const submitFormFetcher = ({ url, method, formData }) => {
+      if (isSubmitting) return;
+      isSubmitting = true;
+      let ok = false;
+      function request() {
+         // GET does not have a request body, params are passed in the search query string
+         if (method.toLowerCase() === 'get') {
+            const search = new URLSearchParams(formData).toString();
+            return fetch(`${url}?${search}`, {
+               method,
+               credentials: 'same-origin',
+            });
+         }
+         // For other methods, just use the body
+         else {
+            return fetch(url, {
+               method,
+               body: formData,
+               credentials: 'same-origin',
+            });
+         }
+      }
+      return request()
+         .then((res) => {
+            ok = res.ok;
+            return res.json();
+         })
+         .then((data) => {
+            isSubmitting = false;
+            if (ok) {
+               return Promise.resolve(data);
+            } else {
+               return Promise.reject(data);
+            }
+         });
+   };
+
+   document.querySelectorAll('[data-enhanced-form]').forEach((form) => {
       form.addEventListener('submit', (e) => {
          e.preventDefault();
-         if (isSubmitting) return;
-         isSubmitting = true;
          const url = form.action;
          const method = form.method;
          const formData = new FormData(form);
-         let ok = false;
-
-         function request() {
-            // GET does not have a request body, params are passed in the search query string
-            if (method.toLowerCase() === 'get') {
-               const search = new URLSearchParams(formData).toString();
-               return fetch(`${url}?${search}`, {
-                  method,
-                  credentials: 'same-origin',
-               });
-            }
-            // For other methods, just use the body
-            else {
-               return fetch(url, {
-                  method,
-                  body: formData,
-                  credentials: 'same-origin',
-               });
-            }
-         }
-
-         request()
-            .then((res) => {
-               ok = res.ok;
-               return res.json();
-            })
-            .then((data) => {
-               if (ok) {
-                  return Promise.resolve(data);
-               } else {
-                  return Promise.reject(data);
-               }
-            })
+         submitFormFetcher({ url, formData, method })
             .then((data) => {
                if (!form) return;
                const successEvent = new CustomEvent('submit-success', {
@@ -94,10 +89,7 @@ const { id = `form-id-${nanoid()}`, action, method, ...props } = Astro.props;
                   detail: error,
                });
                form.dispatchEvent(errorEvent);
-            })
-            .finally(() => {
-               isSubmitting = false;
             });
       });
-   })();
+   });
 </script>
