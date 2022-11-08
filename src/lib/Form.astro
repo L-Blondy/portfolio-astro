@@ -11,25 +11,49 @@ interface Props extends HTMLAttributes<'form'> {
 
 <form data-enhanced-form {...Astro.props}><slot /></form>
 
-<!-- Touched handler -->
+<!-- Errors UI -->
 <script>
    document
       .querySelectorAll<HTMLFormElement>('[data-enhanced-form]')
       .forEach((form) => {
+         const elements: (HTMLInputElement | HTMLTextAreaElement)[] = [
+            ...form.elements,
+         ] as any;
+
          form.addEventListener('reset', () => {
-            [...form.elements].forEach((element) => {
+            elements.forEach((element) => {
                element.classList.remove('touched');
+               displayValidationMessage(element, '');
             });
          });
-         [...form.elements].forEach((element) => {
-            element.addEventListener('invalid', () => {
+         elements.forEach((element) => {
+            element.addEventListener('invalid', (e) => {
+               e.preventDefault();
                element.classList.add('touched');
+               displayValidationMessage(element, element.validationMessage);
             });
             element.addEventListener('blur', () => {
                element.classList.add('touched');
+               displayValidationMessage(element, element.validationMessage);
+            });
+            element.addEventListener('input', () => {
+               if (element.classList.contains('touched')) {
+                  displayValidationMessage(element, element.validationMessage);
+               }
             });
          });
       });
+
+   function displayValidationMessage(
+      element: HTMLInputElement | HTMLTextAreaElement,
+      message: string,
+   ) {
+      const errorContainer = document.querySelector(
+         `[form-error-field="${element.name}"]`,
+      );
+      if (!errorContainer) return;
+      errorContainer.textContent = message;
+   }
 </script>
 
 <!-- Submit handler -->

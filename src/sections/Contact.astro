@@ -3,7 +3,6 @@ import SectionTitle from 'src/components/SectionTitle.astro';
 import Form from 'src/lib/Form.astro';
 import IconLoading from 'src/lib/IconLoading.astro';
 import IconSuccess from 'src/lib/IconSuccess.astro';
-import IconTriangles from 'src/lib/IconTriangles.astro';
 ---
 
 <div class="bg-gray-100 px-section-gutter py-12 sm:py-16 md:py-20">
@@ -19,7 +18,7 @@ import IconTriangles from 'src/lib/IconTriangles.astro';
          Feel free to reach out. I'd love to hear from you!
       </p>
 
-      <div class="flex flex-col">
+      <div class="flex flex-col relative">
          <label for="email" class="font-medium sm:text-lg">
             Email
             <span class="text-red-500">*</span>
@@ -31,9 +30,10 @@ import IconTriangles from 'src/lib/IconTriangles.astro';
             class="leading-10 px-2 rounded-sm shadow-emphasis outline-primary-light"
             required
          />
+         <div form-error-field="email" class="text-xs pt-0.5"></div>
       </div>
 
-      <div class="flex flex-col">
+      <div class="flex flex-col relative">
          <label for="fullName" class="font-medium sm:text-lg">
             Full name
             <span class="text-red-500">*</span>
@@ -45,9 +45,10 @@ import IconTriangles from 'src/lib/IconTriangles.astro';
             class="leading-10 px-2 rounded-sm shadow-emphasis outline-primary-light"
             required
          />
+         <div form-error-field="fullName" class="text-xs pt-0.5"></div>
       </div>
 
-      <div class="flex flex-col">
+      <div class="flex flex-col relative">
          <label for="message" class="font-medium sm:text-lg">
             Message
             <span class="text-red-500">*</span>
@@ -60,6 +61,7 @@ import IconTriangles from 'src/lib/IconTriangles.astro';
             minlength="20"
             maxlength="2000"
             required></textarea>
+         <div form-error-field="message" class="text-xs pt-0.5"></div>
       </div>
       <button class="btn-contained gap-2 text-lg">
          Send message
@@ -73,6 +75,10 @@ import IconTriangles from 'src/lib/IconTriangles.astro';
    input.touched:invalid,
    textarea.touched:invalid {
       outline: 2px solid coral;
+   }
+
+   [form-error-field] {
+      color: red;
    }
 </style>
 
