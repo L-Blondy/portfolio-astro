@@ -13,6 +13,8 @@ interface Props extends HTMLAttributes<'form'> {
 
 <!-- Errors UI -->
 <script>
+   const ERROR_FIELD_ATTRIBUTE = 'form-error-field';
+
    document
       .querySelectorAll<HTMLFormElement>('[data-enhanced-form]')
       .forEach((form) => {
@@ -49,7 +51,7 @@ interface Props extends HTMLAttributes<'form'> {
       message: string,
    ) {
       const errorContainer = document.querySelector(
-         `[form-error-field="${element.name}"]`,
+         `[${ERROR_FIELD_ATTRIBUTE}="${element.name}"]`,
       );
       if (!errorContainer) return;
       errorContainer.textContent = message;
