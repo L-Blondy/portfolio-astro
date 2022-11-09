@@ -5,7 +5,7 @@ import { config } from './src/config';
 
 // https://astro.build/config
 export default defineConfig({
-   site: config.seo.url,
+   site: config.production.url,
    output: 'server',
    integrations: [tailwind()],
    adapter: vercel(),

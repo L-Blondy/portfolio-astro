@@ -41,6 +41,9 @@ module.exports = {
          padding: {
             'section-gutter': '20px',
          },
+         animation: {
+            'slideIn-from-top': 'slideIn-from-top 300ms forwards',
+         },
       },
    },
    plugins: [
@@ -81,6 +84,91 @@ module.exports = {
             '.btn': buttonBase,
             '.btn-contained': buttonContained,
             '.btn-outlined': buttonOutlined,
+         });
+      }),
+      plugin(({ addComponents, theme }) => {
+         const buttonBase = {
+            borderRadius: theme('borderRadius.DEFAULT'),
+            padding: `${theme('spacing[2.5]')} ${theme('spacing[5]')}`,
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 100ms',
+         };
+
+         const buttonContained = {
+            ...buttonBase,
+            padding: `calc(2px + ${theme('spacing[2.5]')}) calc(2px + ${theme(
+               'spacing[5]',
+            )})`,
+            backgroundColor: theme('colors.primary.light'),
+            color: theme('colors.bg.light'),
+            '&:hover': {
+               opacity: '0.75',
+            },
+         };
+
+         const buttonOutlined = {
+            ...buttonBase,
+            border: '2px solid currentColor',
+            backgroundColor: '#88888800',
+            color: theme('colors.primary.light'),
+            '&:hover': {
+               backgroundColor: '#88888830',
+            },
+         };
+
+         addComponents({
+            '.btn': buttonBase,
+            '.btn-contained': buttonContained,
+            '.btn-outlined': buttonOutlined,
+         });
+      }),
+      plugin(({ addUtilities }) => {
+         addUtilities({
+            '.animation-duration-75': {
+               'animation-duration': '75ms',
+            },
+            '.animation-duration-100': {
+               'animation-duration': '100ms',
+            },
+            '.animation-duration-150': {
+               'animation-duration': '150ms',
+            },
+            '.animation-duration-200': {
+               'animation-duration': '200ms',
+            },
+            '.animation-duration-300': {
+               'animation-duration': '300ms',
+            },
+            '.animation-duration-400': {
+               'animation-duration': '400ms',
+            },
+            '.animation-duration-500': {
+               'animation-duration': '500ms',
+            },
+            '.animation-duration-600': {
+               'animation-duration': '600ms',
+            },
+            '.animation-duration-700': {
+               'animation-duration': '700ms',
+            },
+            '.animation-duration-1000': {
+               'animation-duration': '1000ms',
+            },
+            '.animation-duration-1500': {
+               'animation-duration': '1500ms',
+            },
+            '.animation-duration-2000': {
+               'animation-duration': '2000ms',
+            },
+            '.animation-duration-2500': {
+               'animation-duration': '2500ms',
+            },
+            '.animation-duration-3000': {
+               'animation-duration': '3000ms',
+            },
          });
       }),
    ],
