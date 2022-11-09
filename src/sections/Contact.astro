@@ -1,8 +1,8 @@
 ---
-import SectionTitle from 'src/components/SectionTitle.astro';
+import HeaderSection from 'src/components/HeaderSection.astro';
 import Form from 'src/lib/Form.astro';
-import IconLoading from 'src/lib/IconLoading.astro';
-import IconSuccess from 'src/lib/IconSuccess.astro';
+import IconLoading from 'src/components/IconLoading.astro';
+import IconSuccess from 'src/components/IconSuccess.astro';
 ---
 
 <div class="bg-gray-100 px-section-gutter py-12 sm:py-16 md:py-20">
@@ -12,7 +12,7 @@ import IconSuccess from 'src/lib/IconSuccess.astro';
       id="contactForm"
       class="flex flex-col gap-4 sm:gap-7 max-w-xl mx-auto"
    >
-      <SectionTitle>Contact me</SectionTitle>
+      <HeaderSection>Contact me</HeaderSection>
 
       <p class="sm:text-lg">
          Feel free to reach out. I'd love to hear from you!

@@ -1,0 +1,55 @@
+---
+import IconGithub from 'src/components/IconGithub.astro';
+import IconLinkedin from 'src/components/IconLinkedin.astro';
+---
+
+<footer
+   class="pt-12 pb-16 text-white md:pt-10 md:pb-12 overflow-hidden bg-bg-dark"
+>
+   <div class="container">
+      <div
+         class="flex flex-col gap-6 md:gap-4 lg:gap-6 md:flex-row md:justify-between"
+      >
+         <h2
+            class="text-3xl md:text-4xl font-medium flex items-center justify-center gap-3 md:justify-start md:order-1"
+         >
+            <span class="text-primary-dark filter brightness-100">Laurent</span>
+            <span class="text-primary-dark-dimmed filter brightness-100">
+               Blondy
+            </span>
+         </h2>
+
+         <div
+            class="flex align-center justify-center gap-6 md:row-span-2 md:justify-end md:order-3 md:-mb-1"
+            style={{ color: '#d5e3e6' }}
+         >
+            <a
+               href="https://it.linkedin.com/in/laurent-blondy-72b364172"
+               class="rounded-full"
+               hreflang="en"
+               rel="noopener noreferrer"
+               aria-label="open Linkedin profile in a new tab"
+               target="_blank"
+            >
+               <IconLinkedin width={36} fill="currentColor" color="#002f46" />
+            </a>
+            <a
+               href="https://github.com/L-Blondy"
+               class="rounded-full"
+               hreflang="en"
+               rel="noopener noreferrer"
+               aria-label="open Github profile in a new tab"
+               target="_blank"
+            >
+               <IconGithub width={36} fill="currentColor" />
+            </a>
+         </div>
+
+         <div
+            class="flex justify-center items-end flex-grow opacity-60 text-sm md:text-base md:order-2 md:justify-start"
+         >
+            Copyright &copy; 2021. All rights reserved.
+         </div>
+      </div>
+   </div>
+</footer>

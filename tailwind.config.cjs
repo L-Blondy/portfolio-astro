@@ -5,14 +5,27 @@ module.exports = {
    content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 
    theme: {
+      container: {
+         center: true,
+         padding: {
+            DEFAULT: '1.25rem',
+            sm: '4rem',
+            md: '2rem',
+            lg: '5rem',
+            xl: '11rem',
+            '2xl': '18rem',
+         },
+      },
       extend: {
          colors: {
             primary: {
                light: '#27B4A3',
                dark: '#67ECDC',
+               'dark-dimmed': '#00907f',
             },
             bg: {
                light: '#fcfcfc',
+               dark: '#002f46',
             },
             text: {
                light: '#4B5563',
@@ -33,8 +46,8 @@ module.exports = {
    plugins: [
       plugin(({ addComponents, theme }) => {
          const buttonBase = {
-            borderRadius: theme('borderRadius').DEFAULT,
-            padding: `${theme('spacing')['2.5']} ${theme('spacing')['5']}`,
+            borderRadius: theme('borderRadius.DEFAULT'),
+            padding: `${theme('spacing[2.5]')} ${theme('spacing[5]')}`,
             fontWeight: 600,
             display: 'flex',
             alignItems: 'center',
@@ -44,11 +57,11 @@ module.exports = {
 
          const buttonContained = {
             ...buttonBase,
-            padding: `calc(2px + ${theme('spacing')['2.5']}) calc(2px + ${
-               theme('spacing')['5']
-            })`,
-            backgroundColor: theme('colors').primary.light,
-            color: theme('colors').bg.light,
+            padding: `calc(2px + ${theme('spacing[2.5]')}) calc(2px + ${theme(
+               'spacing[5]',
+            )})`,
+            backgroundColor: theme('colors.primary.light'),
+            color: theme('colors.bg.light'),
             '&:hover': {
                opacity: '0.75',
             },
@@ -58,7 +71,7 @@ module.exports = {
             ...buttonBase,
             border: '2px solid currentColor',
             backgroundColor: '#88888800',
-            color: theme('colors').primary.light,
+            color: theme('colors.primary.light'),
             '&:hover': {
                backgroundColor: '#88888830',
             },

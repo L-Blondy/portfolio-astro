@@ -1,12 +1,36 @@
 ---
 import { SEO } from 'astro-seo';
-import { config } from '../config';
 
 export interface Props {
    title: string;
 }
 
 const { title } = Astro.props;
+
+const seo = {
+   url: 'https://blondy.dev/',
+   description:
+      "I'm a front-end software developer specialized in building (and occasionally designing) exceptional digital experiences. Currently, I'm focused on building accessible, human-centered products at Commit Software.",
+   tags: [
+      'Laurent Blondy',
+      'Blondy Laurent',
+      'Laurent',
+      'Blondy',
+      'web dev',
+      'web developer',
+      'frontend web developer',
+      'front-end web developer',
+      'frontend developer',
+      'front-end developer',
+      'frontend web dev',
+      'front-end web dev',
+      'sviluppatore',
+      'sviluppatore frontend',
+      'sviluppatore front-end',
+      'react developer',
+      'portfolio',
+   ],
+};
 ---
 
 <!DOCTYPE html>
@@ -18,8 +42,8 @@ const { title } = Astro.props;
       <meta name="generator" content={Astro.generator} />
       <SEO
          title={title}
-         description={config.seo.description}
-         canonical={config.seo.url}
+         description={seo.description}
+         canonical={seo.url}
          openGraph={{
             image: {
                url: '/open-graph-image.png',
@@ -29,7 +53,7 @@ const { title } = Astro.props;
                type: 'image/png',
             },
             optional: {
-               description: config.seo.description,
+               description: seo.description,
                siteName: 'Laurent Blondy | Front-end Software Developer',
                locale: 'en-US',
             },
@@ -37,7 +61,7 @@ const { title } = Astro.props;
                title,
                image: '/open-graph-image.png',
                type: 'website',
-               url: config.seo.url,
+               url: seo.url,
             },
          }}
       />
