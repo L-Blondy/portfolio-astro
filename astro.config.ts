@@ -4,9 +4,21 @@ import { defineConfig } from 'astro/config';
 import { config } from './src/config';
 
 // https://astro.build/config
+import compress from 'astro-compress';
+
+// https://astro.build/config
 export default defineConfig({
    site: config.production.url,
    output: 'server',
-   integrations: [tailwind()],
+   integrations: [
+      tailwind(),
+      compress({
+         css: false,
+         html: true,
+         img: false,
+         js: false,
+         svg: false,
+      }),
+   ],
    adapter: vercel(),
 });
