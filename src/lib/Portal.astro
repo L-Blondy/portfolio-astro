@@ -15,7 +15,6 @@ const { rootId } = Astro.props;
          : createFallbackRoot();
       rootElement.innerHTML = innerHTML;
    });
-
    function createFallbackRoot() {
       const rootElement = document.createElement('div');
       rootElement.dataset.portal = true;
