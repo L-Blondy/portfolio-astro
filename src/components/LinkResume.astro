@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { config } from 'src/config';
+
+interface Props
+   extends Omit<HTMLAttributes<'a'>, 'href' | 'href-lang' | 'rel' | 'target'> {}
+---
+
+<a
+   href={`/${config.production.resumeFilename}`}
+   href-lang="en"
+   rel="noopener noreferrer"
+   target="_blank"
+   {...Astro.props}
+>
+   <slot />
+</a>

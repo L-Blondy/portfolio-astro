@@ -5,6 +5,15 @@ module.exports = {
    content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 
    theme: {
+      screens: {
+         '2xs': '359px',
+         xs: '500px',
+         sm: '640px',
+         md: '768.1px',
+         lg: '1024.1px',
+         xl: '1280.1px',
+         '2xl': '1536.1px',
+      },
       container: {
          center: true,
          padding: {
@@ -43,6 +52,16 @@ module.exports = {
          },
          animation: {
             'slideIn-from-top': 'slideIn-from-top 300ms forwards',
+         },
+         strokeWidth: {
+            3: 3,
+         },
+         opacity: {
+            85: 0.85,
+         },
+         fontSize: {
+            '2xs': '0.625rem',
+            md: '1.0625rem',
          },
       },
    },

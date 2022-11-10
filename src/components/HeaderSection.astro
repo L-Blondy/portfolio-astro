@@ -1,10 +1,16 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import IconTriangles from 'src/components/IconTriangles.astro';
 
-interface Props {}
+interface Props extends HTMLAttributes<'div'> {}
+
+const { class: className = '', ...props } = Astro.props;
 ---
 
-<h2 class="flex items-center gap-2 text-2xl sm:text-3xl lg:text-4xl">
+<h2
+   class={`flex items-center gap-2 text-2xl sm:text-3xl lg:text-4xl ${className}`}
+   {...props}
+>
    <IconTriangles class="text-primary-light h-6 w-6 sm:h-10 sm:w-10" />
    <slot />
    <div class="grow h-0.5 -mb-0.5 ml-2 bg-primary-light"></div>

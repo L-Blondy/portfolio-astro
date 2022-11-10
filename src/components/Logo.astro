@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import IconLogo from './IconLogo.astro';
+
+interface Props extends HTMLAttributes<'div'> {}
+---
+
+<div {...Astro.props}>
+   <div role="img" class="flex items-center gap-1.5">
+      <IconLogo class="text-primary-dark" />
+
+      <div class="flex flex-col justify-center gap-1.5 whitespace-nowrap">
+         <div class="font-semibold 2xs:text-xl leading-5 text-white opacity-90">
+            Laurent Blondy
+         </div>
+         <div
+            class="font-semibold text-xs 2xs:text-2xs leading-2 text-text-dark transform scale-95 origin-left 2xs:scale-100"
+         >
+            Front-end
+            <span class="hidden 2xs:inline">software</span> developer
+         </div>
+      </div>
+   </div>
+</div>
