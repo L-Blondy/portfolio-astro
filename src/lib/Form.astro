@@ -12,37 +12,44 @@ interface Props extends HTMLAttributes<'form'> {
 <form data-enhanced-form {...Astro.props}><slot /></form>
 
 <!-- Errors UI -->
-<script defer>
+<script>
    const ERROR_FIELD_ATTRIBUTE = 'form-error-field';
 
-   document.querySelectorAll('[data-enhanced-form]').forEach((form) => {
-      const elements = [...form.elements];
+   document
+      .querySelectorAll<HTMLFormElement>('[data-enhanced-form]')
+      .forEach((form) => {
+         const elements: (HTMLInputElement | HTMLTextAreaElement)[] = [
+            ...form.elements,
+         ] as any;
 
-      form.addEventListener('reset', () => {
+         form.addEventListener('reset', () => {
+            elements.forEach((element) => {
+               element.classList.remove('touched');
+               displayValidationMessage(element, '');
+            });
+         });
          elements.forEach((element) => {
-            element.classList.remove('touched');
-            displayValidationMessage(element, '');
-         });
-      });
-      elements.forEach((element) => {
-         element.addEventListener('invalid', (e) => {
-            e.preventDefault();
-            element.classList.add('touched');
-            displayValidationMessage(element, element.validationMessage);
-         });
-         element.addEventListener('blur', () => {
-            element.classList.add('touched');
-            displayValidationMessage(element, element.validationMessage);
-         });
-         element.addEventListener('input', () => {
-            if (element.classList.contains('touched')) {
+            element.addEventListener('invalid', (e) => {
+               e.preventDefault();
+               element.classList.add('touched');
                displayValidationMessage(element, element.validationMessage);
-            }
+            });
+            element.addEventListener('blur', () => {
+               element.classList.add('touched');
+               displayValidationMessage(element, element.validationMessage);
+            });
+            element.addEventListener('input', () => {
+               if (element.classList.contains('touched')) {
+                  displayValidationMessage(element, element.validationMessage);
+               }
+            });
          });
       });
-   });
 
-   function displayValidationMessage(element, message) {
+   function displayValidationMessage(
+      element: HTMLInputElement | HTMLTextAreaElement,
+      message: string,
+   ) {
       const errorContainer = document.querySelector(
          `[${ERROR_FIELD_ATTRIBUTE}="${element.name}"]`,
       );
