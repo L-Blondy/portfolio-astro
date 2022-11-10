@@ -13,11 +13,11 @@ export default defineConfig({
    integrations: [
       tailwind(),
       compress({
-         css: false,
+         css: true,
          html: true,
-         img: false,
-         js: false,
-         svg: false,
+         img: true,
+         js: true,
+         svg: true,
       }),
    ],
    adapter: vercel(),
