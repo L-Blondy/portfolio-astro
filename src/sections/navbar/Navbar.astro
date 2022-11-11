@@ -1,42 +1,101 @@
 ---
-import Logo from 'src/components/Logo.astro';
+import LinkResume from 'src/components/LinkResume.astro';
+import Logo from './Logo.astro';
 import Portal from 'src/lib/Portal.astro';
+import NavLink from './NavLink.astro';
+import Burger from './Burger.astro';
 ---
 
-<div class="absolute h-24 text-text-dark w-full z-10">
-   <div class="hidden sm:block">
-      <nav class="flex items-center justify-between">
-         <Logo />
-         <button id="burger">Burger</button>
-      </nav>
+<nav class="absolute w-full top-0 left-0">
+   <div
+      class="h-24 text-text-dark w-full flex items-center justify-between px-3 sm:px-5 md:px-8 lg:px-12"
+   >
+      <Logo />
+
+      <Burger id="burger" class="block sm:hidden text-primary-dark" />
+
+      <ul
+         role="menubar"
+         id="desktop-nav"
+         class="items-center gap-2 hidden sm:flex"
+      >
+         <NavLink>
+            <a href="#projects">Projects</a>
+         </NavLink>
+
+         <NavLink>
+            <a href="#skills">Skills</a>
+         </NavLink>
+
+         <NavLink>
+            <LinkResume>Resume</LinkResume>
+         </NavLink>
+
+         <NavLink class="!pr-0 hover:bg-transparent">
+            <a
+               class="btn-outlined px-4 py-2 font-medium text-primary-dark"
+               href="#contact"
+            >
+               Contact
+            </a>
+         </NavLink>
+      </ul>
    </div>
-</div>
+</nav>
 
 <Portal>
    <div
       id="mobile-nav"
-      class="fixed hidden inset-0 bg-gray-200 transition-all animate-slideIn-from-top animation-duration-3000"
+      class="fixed invisible inset-0 bg-bg-dark transition-all duration-500 transform -translate-y-full opacity-70"
    >
-      Mobile nav
+      <button
+         class="absolute right-0 top-0 text-text-dark h-16 flex items-center mr-4 gap-1"
+      >
+         close
+      </button>
+
+      <div class="h-full flex items-center justify-center">
+         <ul role="menubar" class="flex flex-col items-center gap-2">
+            <NavLink class="!px-6 text-xl">
+               <a href="#projects">Projects</a>
+            </NavLink>
+
+            <NavLink class="!px-6 text-xl">
+               <a href="#skills">Skills</a>
+            </NavLink>
+
+            <NavLink class="!px-6 text-xl">
+               <LinkResume>Resume</LinkResume>
+            </NavLink>
+
+            <NavLink class="!px-6 text-xl">
+               <a href="#contact">Contact</a>
+            </NavLink>
+         </ul>
+      </div>
    </div>
 </Portal>
 
 <script>
-   (function () {
+   window.addEventListener('load', () => {
       const burger = document.getElementById('burger');
-      if (!burger) return;
+      const mobileNav = document.getElementById('mobile-nav');
+      if (!burger || !mobileNav) return;
 
       burger.addEventListener('click', () => {
-         const mobileNav = document.getElementById('mobile-nav');
-         if (!mobileNav) return;
-         mobileNav.classList.remove('hidden');
+         mobileNav.classList.remove(
+            'invisible',
+            '-translate-y-full',
+            'opacity-70',
+         );
       });
 
-      document.addEventListener('keydown', (e) => {
-         if (e.key !== 'Escape') return;
-         const mobileNav = document.getElementById('mobile-nav');
-         if (!mobileNav) return;
-         mobileNav.classList.add('hidden');
+      mobileNav.addEventListener('click', () => {
+         mobileNav.classList.add(
+            'invisible',
+            '-translate-y-full',
+            'opacity-70',
+         );
       });
-   })();
+   });
 </script>
