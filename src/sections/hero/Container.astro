@@ -27,25 +27,25 @@ import { cn } from 'src/utils';
          w-full
          my-auto
          bg-gradient-to-r from-[#40c2c20d] to-[#40c2c206]
-         before:hidden
-         before:sm:block
-         before:absolute
-         before:inset-0
-         before:flex-shrink-0
-         before:bg-primary-dark
-         before:w-1
-         after:content-['REACT']
+         after:hidden
+         after:sm:block
          after:absolute
-         after:top-1/2
-         after:right-0
-         after:-translate-y-1/2
-         after:translate-x-1/4
-         after:text-[300px]
-         after:opacity-[0.03]
-         after:font-semibold
+         after:inset-0
+         after:flex-shrink-0
+         after:bg-primary-dark
+         after:w-1
+         before:content-['REACT']
+         before:absolute
+         before:top-1/2
+         before:right-0
+         before:-translate-y-1/2
+         before:translate-x-1/4
+         before:text-[300px]
+         before:opacity-[0.03]
+         before:font-semibold
       `}
    >
-      <div class="container">
+      <div class="container z-10">
          <slot />
       </div>
    </div>
