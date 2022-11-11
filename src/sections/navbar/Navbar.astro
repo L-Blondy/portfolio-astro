@@ -3,15 +3,19 @@ import Logo from 'src/components/Logo.astro';
 import Portal from 'src/lib/Portal.astro';
 ---
 
-<nav class="w-full h-24 absolute text-text-dark">
-   <Logo />
-   <button id="burger">Burger</button>
-</nav>
+<div class="absolute h-24 text-text-dark w-full z-10">
+   <div class="hidden sm:block">
+      <nav class="flex items-center justify-between">
+         <Logo />
+         <button id="burger">Burger</button>
+      </nav>
+   </div>
+</div>
 
 <Portal>
    <div
       id="mobile-nav"
-      class="hidden fixed inset-0 bg-gray-200 transition-all animate-slideIn-from-top animation-duration-3000"
+      class="fixed hidden inset-0 bg-gray-200 transition-all animate-slideIn-from-top animation-duration-3000"
    >
       Mobile nav
    </div>
