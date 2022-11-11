@@ -6,13 +6,15 @@ import NavLink from './NavLink.astro';
 import Burger from './Burger.astro';
 ---
 
-<nav class="absolute w-full top-0 left-0">
+<nav
+   class="absolute w-full top-0 left-0 z-20 bg-gradient-to-r from-[#002138] to-[#001223]"
+>
    <div
       class="h-24 text-text-dark w-full flex items-center justify-between px-4 sm:px-5 md:px-8 lg:px-12"
    >
       <Logo />
 
-      <Burger id="burger" class="block sm:hidden text-primary-dark" />
+      <Burger id="burger" class="sm:hidden text-primary-dark" />
 
       <ul
          role="menubar"
@@ -46,33 +48,25 @@ import Burger from './Burger.astro';
 <Portal>
    <div
       id="mobile-nav"
-      class="fixed invisible inset-0 bg-bg-dark transition-all duration-500 transform -translate-y-full opacity-70"
+      class="fixed invisible inset-0 bg-gradient-to-r from-[#002138] to-[#001223] transition-all duration-500 transform -translate-y-full z-10 flex items-center justify-center"
    >
-      <button
-         class="absolute right-0 top-0 text-text-dark h-16 flex items-center mr-4 gap-1"
-      >
-         close
-      </button>
+      <ul role="menubar" class="flex flex-col items-center gap-2">
+         <NavLink class="!px-6 !text-2xl min-w-[50vw] text-center">
+            <a href="#projects">Projects</a>
+         </NavLink>
 
-      <div class="h-full flex items-center justify-center">
-         <ul role="menubar" class="flex flex-col items-center gap-2">
-            <NavLink class="!px-6 text-xl">
-               <a href="#projects">Projects</a>
-            </NavLink>
+         <NavLink class="!px-6 !text-2xl min-w-[50vw] text-center">
+            <a href="#skills">Skills</a>
+         </NavLink>
 
-            <NavLink class="!px-6 text-xl">
-               <a href="#skills">Skills</a>
-            </NavLink>
+         <NavLink class="!px-6 !text-2xl min-w-[50vw] text-center">
+            <LinkResume>Resume</LinkResume>
+         </NavLink>
 
-            <NavLink class="!px-6 text-xl">
-               <LinkResume>Resume</LinkResume>
-            </NavLink>
-
-            <NavLink class="!px-6 text-xl">
-               <a href="#contact">Contact</a>
-            </NavLink>
-         </ul>
-      </div>
+         <NavLink class="!px-6 !text-2xl min-w-[50vw] text-center">
+            <a href="#contact">Contact</a>
+         </NavLink>
+      </ul>
    </div>
 </Portal>
 
@@ -83,19 +77,21 @@ import Burger from './Burger.astro';
       if (!burger || !mobileNav) return;
 
       burger.addEventListener('click', () => {
-         mobileNav.classList.remove(
-            'invisible',
-            '-translate-y-full',
-            'opacity-70',
-         );
+         if (mobileNav.classList.contains('invisible')) {
+            burger.classList.add('-scale-y-100');
+            mobileNav.classList.remove('invisible', '-translate-y-full');
+            document.documentElement.classList.add('no-scroll');
+         } else {
+            burger.classList.remove('-scale-y-100');
+            mobileNav.classList.add('invisible', '-translate-y-full');
+            document.documentElement.classList.remove('no-scroll');
+         }
       });
 
       mobileNav.addEventListener('click', () => {
-         mobileNav.classList.add(
-            'invisible',
-            '-translate-y-full',
-            'opacity-70',
-         );
+         burger.classList.remove('-scale-y-100');
+         mobileNav.classList.add('invisible', '-translate-y-full');
+         document.documentElement.classList.remove('no-scroll');
       });
    });
 </script>
