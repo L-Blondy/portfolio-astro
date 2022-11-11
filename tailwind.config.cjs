@@ -6,7 +6,7 @@ module.exports = {
 
    theme: {
       screens: {
-         '2xs': '359px',
+         '2xs': '320px',
          xs: '500px',
          sm: '640px',
          md: '768.1px',
@@ -40,9 +40,6 @@ module.exports = {
                light: '#4B5563',
                dark: '#c4cad0',
             },
-         },
-         backgroundImage: {
-            landing: 'linear-gradient(90deg, #002138, #001223)',
          },
          boxShadow: {
             emphasis: '0 0 2px 0 #00000016',

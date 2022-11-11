@@ -1,0 +1,52 @@
+---
+import { cn } from 'src/utils';
+---
+
+<section
+   id="hero"
+   class={cn`
+      flex
+      flex-col
+      overflow-hidden
+      min-h-screen
+      pt-24
+      bg-landing
+      text-text-dark
+      bg-gradient-to-r from-[#002138] to-[#001223]
+      after:content-['TYPESCRIPT']
+      after:text-[160px]
+      after:sm:text-[200px]
+      after:font-semibold
+      after:opacity-[0.03]
+      after:leading-[0.7]
+   `}
+>
+   <div
+      class={cn`
+         relative 
+         w-full
+         my-auto
+         bg-gradient-to-r from-[#40c2c20d] to-[#40c2c206]
+         before:hidden
+         before:sm:block
+         before:absolute
+         before:inset-0
+         before:flex-shrink-0
+         before:bg-primary-dark
+         before:w-1
+         after:content-['REACT']
+         after:absolute
+         after:top-1/2
+         after:right-0
+         after:-translate-y-1/2
+         after:translate-x-1/4
+         after:text-[300px]
+         after:opacity-[0.03]
+         after:font-semibold
+      `}
+   >
+      <div class="container">
+         <slot />
+      </div>
+   </div>
+</section>
