@@ -15,16 +15,18 @@ const { name, description, techs, slides } = Astro.props;
    <p>{techs}</p>
    <div>
       {
-         slides.map((slide) => (
-            <Picture
-               alt={slide.alt}
-               src={slide.src}
-               sizes="(max-width: 400px) 343px, (max-width: 769px) 513px, 600px"
-               widths={[343, 513, 600]}
-               aspectRatio={5 / 3}
-               formats={['avif', 'webp', 'jpg']}
-            />
-         ))
+         slides.map(
+            (slide) =>
+               654,
+               // <Picture
+               //    alt={slide.alt}
+               //    src={slide.src}
+               //    sizes="(max-width: 400px) 343px, (max-width: 769px) 513px, 600px"
+               //    widths={[343, 513, 600]}
+               //    aspectRatio={5 / 3}
+               //    formats={['avif', 'webp', 'jpg']}
+               // />
+         )
       }
    </div>
 </article>

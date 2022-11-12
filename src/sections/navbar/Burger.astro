@@ -8,6 +8,7 @@ const { class: className = '', ...props } = Astro.props;
 
 <button
    class={`h-16 w-16 p-4 flex flex-col items-center justify-between -mr-4 transition-all duration-500 ${className}`}
+   aria-label="toggle navigation menu"
    {...props}
 >
    <div class="h-0.5 my-1 bg-primary-dark w-full"></div>
