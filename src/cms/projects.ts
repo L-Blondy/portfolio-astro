@@ -15,8 +15,16 @@ export const projects = [
 		`,
       slides: [
          {
-            src: '/slides/H2O-1.png',
+            src: '/slides/h2o/1.png',
             alt: 'H2O homepage',
+         },
+         {
+            src: '/slides/h2o/2.png',
+            alt: 'H2O case studies',
+         },
+         {
+            src: '/slides/h2o/3.png',
+            alt: 'H2O contact',
          },
       ],
    },

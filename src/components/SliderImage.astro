@@ -1,0 +1,44 @@
+---
+import { Picture } from '@astrojs/image/components';
+import { projects } from 'src/cms/projects';
+import { UnpackArray } from 'src/utils';
+
+interface Props {
+   slides: UnpackArray<typeof projects>['slides'];
+}
+
+const { slides } = Astro.props;
+---
+
+<div data-slider="true">
+   <div
+      class="relative flex overflow-hidden snap-mandatory snap-x scroll-smooth"
+   >
+      {
+         slides.map((slide) => (
+            <div class="w-full flex-shrink-0 snap-center snap-always">
+               <Picture
+                  alt={slide.alt}
+                  src={slide.src}
+                  sizes="(max-width: 400px) 343px, (max-width: 769px) 513px, 600px"
+                  widths={[343, 513, 600]}
+                  aspectRatio={5 / 3}
+                  formats={['avif', 'webp', 'jpg']}
+               />
+            </div>
+         ))
+      }
+   </div>
+   <button
+      class="absolute right-1/2 bg-emerald-700 text-white p-2"
+      onclick="this.closest('[data-slider]').querySelector('.snap-x').scrollBy({left:-10000})"
+   >
+      Prev
+   </button>
+   <button
+      class="absolute left-1/2 bg-lime-700 text-white p-2"
+      onclick="this.closest('[data-slider]').querySelector('.snap-x').scrollBy({left:10000})"
+   >
+      Next
+   </button>
+</div>
