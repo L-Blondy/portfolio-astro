@@ -80,7 +80,7 @@ module.exports = {
                'spacing[5]',
             )})`,
             backgroundColor: theme('colors.primary.light'),
-            color: theme('colors.bg.light'),
+            color: 'white',
             '&:hover': {
                opacity: '0.75',
             },
@@ -102,45 +102,7 @@ module.exports = {
             '.btn-outlined': buttonOutlined,
          });
       }),
-      plugin(({ addComponents, theme }) => {
-         const buttonBase = {
-            borderRadius: theme('borderRadius.DEFAULT'),
-            padding: `${theme('spacing[2.5]')} ${theme('spacing[5]')}`,
-            fontWeight: 600,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 100ms',
-         };
 
-         const buttonContained = {
-            ...buttonBase,
-            padding: `calc(2px + ${theme('spacing[2.5]')}) calc(2px + ${theme(
-               'spacing[5]',
-            )})`,
-            backgroundColor: theme('colors.primary.light'),
-            color: theme('colors.bg.light'),
-            '&:hover': {
-               opacity: '0.75',
-            },
-         };
-
-         const buttonOutlined = {
-            ...buttonBase,
-            border: '2px solid currentColor',
-            backgroundColor: '#88888800',
-            color: theme('colors.primary.light'),
-            '&:hover': {
-               backgroundColor: '#88888830',
-            },
-         };
-
-         addComponents({
-            '.btn': buttonBase,
-            '.btn-contained': buttonContained,
-            '.btn-outlined': buttonOutlined,
-         });
-      }),
       plugin(({ addUtilities }) => {
          addUtilities({
             '.animation-duration-75': {
