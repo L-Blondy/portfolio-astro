@@ -1,6 +1,6 @@
 ---
 import { projects } from 'src/cms/projects';
-import SliderImage from 'src/components/SliderImage.astro';
+import Slider from 'src/components/Slider.astro';
 import type { UnpackArray } from 'src/utils';
 
 interface Props extends UnpackArray<typeof projects> {}
@@ -13,5 +13,5 @@ const { name, description, techs, slides } = Astro.props;
    <p>{description}</p>
    <h4>Technologies</h4>
    <p>{techs}</p>
-   <SliderImage slides={slides} />
+   <Slider slides={slides} />
 </article>
