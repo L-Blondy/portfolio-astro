@@ -1,0 +1,8 @@
+---
+import { projects } from 'src/cms/projects';
+import type { UnpackArray } from 'src/utils';
+
+interface Props extends UnpackArray<typeof projects> {}
+
+const { name, description, techs, slides } = Astro.props;
+---

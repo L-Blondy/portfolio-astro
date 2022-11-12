@@ -1,53 +1,19 @@
 ---
+import { skills } from 'src/cms/skills';
 import HeaderSection from 'src/components/HeaderSection.astro';
-import Skill from './Skill.astro';
-
-const skills = [
-   {
-      header: 'Languages',
-      text: 'Typescript, Javascript ES5+, HTML, CSS',
-   },
-   {
-      header: 'Frameworks',
-      text: 'React, Next, Astro',
-   },
-   {
-      header: 'Testing',
-      text: 'Jest, rtl, Cypress',
-   },
-   {
-      header: 'Client state',
-      text: 'Redux, Zustand',
-   },
-   {
-      header: 'Server state',
-      text: 'React-query, Swr',
-   },
-   {
-      header: 'Tooling',
-      text: 'Git, npm, Yarn, Webpack, Babel',
-   },
-   {
-      header: 'Styling',
-      text: 'Tailwind, SASS, Bootstrap, Styled Components',
-   },
-   {
-      header: 'Spoken languages',
-      text: 'English (C2), Italian (C1), French (C1)',
-   },
-];
+import Category from './Category.astro';
 ---
 
-<div id="skills" class="pt-16 pb-20 md:pt-24 md:pb-28 lg:pb-32">
+<section id="skills" class="pt-16 pb-20 md:pt-24 md:pb-28 lg:pb-32">
    <div class="container">
       <HeaderSection class="pb-6 md:pb-10">Technical skills</HeaderSection>
 
       <ul class="grid md:grid-cols-2 gap-6">
          {
             skills.map((skill, i) => (
-               <Skill header={skill.header} text={skill.text} />
+               <Category category={skill.category} list={skill.list} />
             ))
          }
       </ul>
    </div>
-</div>
+</section>

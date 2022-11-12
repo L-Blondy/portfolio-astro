@@ -3,21 +3,21 @@ import type { HTMLAttributes } from 'astro/types';
 import IconTriangleSmall from 'src/components/IconTriangleSmall.astro';
 
 interface Props extends HTMLAttributes<'li'> {
-   header: string;
-   text: string;
+   category: string;
+   list: string[];
 }
 
-const { class: className = '', header, text, ...props } = Astro.props;
+const { category, list, ...props } = Astro.props;
 ---
 
-<li class={`flex items-center ${className}`} {...props}>
+<li class="flex items-center" {...props}>
    <div class="flex items-center gap-3">
       <IconTriangleSmall
          class="flex-shrink-0 text-primary-light stroke-2 sm:stroke-3"
       />
       <div>
-         <h2 class="text-lg md:text-xl font-medium">{header}</h2>
-         <p class="opacity-90">{text}</p>
+         <h2 class="text-lg md:text-xl font-medium">{category}</h2>
+         <p class="opacity-90">{list.join(', ')}</p>
       </div>
    </div>
 </li>

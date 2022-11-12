@@ -1,0 +1,13 @@
+---
+import { projects } from 'src/cms/projects';
+import HeaderSection from 'src/components/HeaderSection.astro';
+import Project from './Project.astro';
+---
+
+<section id="projects" class="container">
+   <HeaderSection class="pt-16 pb-10 md:pb-0 md:pt-24">
+      Featured projects
+   </HeaderSection>
+
+   {projects.map((project) => <Project {...project} />)}
+</section>

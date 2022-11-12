@@ -6,3 +6,5 @@ export const cn = (template: TemplateStringsArray, ...args: string[]) => {
    }
    return res.replace(/([\r\n\s]+)/gm, ' ').trim();
 };
+
+export type UnpackArray<T> = T extends (infer U)[] ? U : T;

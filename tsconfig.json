@@ -5,6 +5,8 @@
       "paths": {
          "src/*": ["./src/*"]
       },
-      "jsx": "preserve"
+      "jsx": "preserve",
+      "importsNotUsedAsValues": "remove",
+      "types": ["@astrojs/image/client"]
    }
 }
