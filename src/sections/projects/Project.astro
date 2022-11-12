@@ -1,4 +1,5 @@
 ---
+import { Image, Picture } from '@astrojs/image/components';
 import { projects } from 'src/cms/projects';
 import type { UnpackArray } from 'src/utils';
 
@@ -6,3 +7,24 @@ interface Props extends UnpackArray<typeof projects> {}
 
 const { name, description, techs, slides } = Astro.props;
 ---
+
+<article>
+   <h3>{name}</h3>
+   <p>{description}</p>
+   <h4>Technologies</h4>
+   <p>{techs}</p>
+   <div>
+      {
+         slides.map((slide) => (
+            <Picture
+               alt={slide.alt}
+               src={slide.src}
+               sizes="(max-width: 400px) 343px, (max-width: 769px) 513px, 600px"
+               widths={[343, 513, 600]}
+               aspectRatio={5 / 3}
+               formats={['avif', 'webp', 'jpg']}
+            />
+         ))
+      }
+   </div>
+</article>

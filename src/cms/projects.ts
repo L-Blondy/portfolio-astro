@@ -13,6 +13,11 @@ export const projects = [
 			built with React, 
 			I used the formspree API to handle the form submissions.
 		`,
-      slides: ['', ''],
+      slides: [
+         {
+            src: '/slides/H2O-1.png',
+            alt: 'H2O homepage',
+         },
+      ],
    },
 ];
