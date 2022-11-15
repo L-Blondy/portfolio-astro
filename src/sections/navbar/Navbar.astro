@@ -71,7 +71,7 @@ import Burger from './Burger.astro';
 </Portal>
 
 <script>
-   window.addEventListener('load', () => {
+   document.addEventListener('DOMContentLoaded', () => {
       const burger = document.getElementById('burger');
       const mobileNav = document.getElementById('mobile-nav');
       if (!burger || !mobileNav) return;

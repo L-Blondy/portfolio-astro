@@ -9,7 +9,7 @@ const { rootId } = Astro.props;
 ---
 
 <script define:vars={{ innerHTML, rootId }}>
-   window.addEventListener('load', () => {
+   document.addEventListener('DOMContentLoaded', () => {
       const rootElement = rootId
          ? document.getElementById(rootId) || createFallbackRoot()
          : createFallbackRoot();
